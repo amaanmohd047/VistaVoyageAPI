@@ -1,0 +1,12 @@
+{
+  "name": "vista-voyage",
+  "version": "1.0.0",
+  "description": "api of vista voyage travel agency website",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mohammed Amaan",
+  "license": "ISC"
+}
