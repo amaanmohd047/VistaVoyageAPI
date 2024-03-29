@@ -1,9 +1,8 @@
 {
-  "name": "vista-voyage",
+  "name": "vistas-voyage",
   "version": "1.0.0",
-  "description": "api of vista voyage travel agency website",
+  "description": "api of vistas voyage travel agency website",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "server": "nodemon src/app.js"
   },
