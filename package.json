@@ -4,12 +4,13 @@
   "description": "api of vistas voyage travel agency website",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon src/app.js"
+    "server": "nodemon src/index.js"
   },
   "author": "Mohammed Amaan",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.1"
+    "express": "^4.19.1",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
