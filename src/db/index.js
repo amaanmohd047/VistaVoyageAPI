@@ -9,9 +9,11 @@ const DB_URI = process.env.MONGODB_URI.replace(
 exports.connectDB = async () => {
   try {
     const connectionInstance = await mongoose.connect(DB_URI);
-    console.log(`Database connection successful! \nDB_HOST: ${connectionInstance.connection.host}`)
+    console.log(
+      `Database connection successful! \nDB_HOST: ${connectionInstance.connection.host}`
+    );
   } catch (error) {
     console.log("Database Connection Failed! \nError: ", error);
-    process.exit(1);
+    throw new Error(error);
   }
 };
