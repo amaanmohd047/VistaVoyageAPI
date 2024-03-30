@@ -6,9 +6,19 @@ const tours = JSON.parse(
 );
 
 // Middleware
-exports.checkID = (req, res, next, val) => {
+exports.checkID = (req, res, next) => {
   if (req.params.id >= tours.length) {
     return res.status(400).json(new ApiResponse(404, null, "Invalid ID"));
+  }
+
+  next();
+};
+
+exports.checkBody = (req, res, next) => {
+  if (!req.body.name || !req.body.price) {
+    return res
+      .status(400)
+      .json(new ApiResponse(400, null, 'No such field as "name" and "price"'));
   }
 
   next();
