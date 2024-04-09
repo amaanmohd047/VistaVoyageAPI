@@ -1,80 +1,67 @@
-const fs = require("fs");
 const ApiResponse = require("../utils/ApiResponse");
+const Tour = require("../models/tours.model");
+const asyncHandler = require("../utils/asyncHandler");
+const ApiError = require("../utils/ApiError");
 
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/../data/tours-simple.json`)
-);
+// Get all tours
+const getAllTours = asyncHandler(async (req, res) => {
+  const tours = await Tour.find();
+  res
+    .status(200)
+    .json(new ApiResponse(200, tours, "Fetched All Tours Successfully!"));
+});
 
-// Middleware
-exports.checkID = (req, res, next) => {
-  if (req.params.id >= tours.length) {
-    return res.status(400).json(new ApiResponse(404, null, "Invalid ID"));
-  }
+// Get tour by ID
+const getTour = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const tour = await Tour.findById(id);
 
-  next();
-};
+  if (!tour) throw new ApiError(404, "Could not find a tour by the Id:", id);
 
-exports.checkBody = (req, res, next) => {
-  if (!req.body.name || !req.body.price) {
-    return res
-      .status(400)
-      .json(new ApiResponse(400, null, 'No such field as "name" and "price"'));
-  }
+  res
+    .status(200)
+    .json(new ApiResponse(200, tour, "Fetched This Tour Successfully!"));
+});
 
-  next();
-};
+// Create new tour
+const createTour = asyncHandler(async (req, res) => {
+  const newTour = await Tour.create({ ...req.body });
+  const createdTour = await Tour.findById(newTour._id);
 
-// Route Handlers
-exports.getAllTours = (req, res) => {
-  res.status(200).json(new ApiResponse(200, tours, "success"));
-};
+  if (!createdTour) throw new ApiError(503, "Could not create new tour!");
 
-exports.getTour = (req, res) => {
-  if (req.params.id >= tours.length)
-    res.status(404).json({ status: "fail", message: "Invalid ID" });
+  res
+    .status(200)
+    .json(new ApiResponse(201, newTour, "Tour Created Successfully"));
+});
 
-  const id = req.params.id * 1;
-  const tour = tours.find((el) => el.id === id);
-
-  res.status(200).json(new ApiResponse(200, tour, "success"));
-};
-
-exports.createTour = (req, res) => {
-  const newId = tours[tours.length - 1].id + 1;
-  const newTour = Object.assign({ id: newId }, req.body);
-
-  tours.push(newTour);
-
-  fs.writeFile(
-    `${__dirname}/data/tours-simple.json`,
-    JSON.stringify(tours),
-    (err) => {
-      if (err) console.error(err);
-      res.status(201).json(new ApiResponse(200, newTour, "success"));
-    }
-  );
-};
-
-exports.updateTour = (req, res) => {
-  if (req.params.id >= tours.length)
-    res.status(404).json({ status: "fail", message: "Invalid ID" });
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      message: "<Updated tour in this field>",
-    },
+// Update existing tour by Id
+const updateTour = asyncHandler(async (req, res) => {
+  const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
   });
-};
 
-exports.deleteTour = (req, res) => {
-  if (req.params.id >= tours.length)
-    res.status(404).json({ status: "fail", message: "Invalid ID" });
+  if (!tour) throw new ApiError(404, "No tour found with this Id!");
 
-  res.status(200).json({
-    status: "success",
-    data: {
-      message: "deleted user successfully",
-    },
-  });
-};
+  res
+    .status(200)
+    .json(new ApiResponse(200, tour, "Tour Upadated Successfully!"));
+});
+
+// Delete tour by Id
+const deleteTour = asyncHandler(async (req, res) => {
+  const deletedTour = await Tour.deleteOne({ _id: req.params.id });
+
+  if (!deletedTour) throw new ApiError(404, "No tour found with this Id!");
+
+  res
+    .status(204)
+    .json(new ApiResponse(204, deleteTour, "Tour Deleted Successfully!"));
+});
+
+// Exports
+exports.getAllTours = getAllTours;
+exports.getTour = getTour;
+exports.createTour = createTour;
+exports.updateTour = updateTour;
+exports.deleteTour = deleteTour;

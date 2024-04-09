@@ -13,6 +13,6 @@ require("./db")
     })
   )
   .catch((error) => {
-    console.error("MongoDB connection Failed!\n", error);
+    console.error("MongoDB connection Failed\n", error);
     process.exit(1);
   });

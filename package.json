@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "server:dev": "nodemon src/index.js",
+    "server:populate-dev-data": "node src/data/populateDevDB.js --import",
+    "server:delete-dev-data": "node src/data/populateDevDB.js --delete",
     "server:prod": "NODE_ENV=production nodemon src/index.js"
   },
   "author": "Mohammed Amaan",
