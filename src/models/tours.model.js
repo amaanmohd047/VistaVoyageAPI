@@ -18,11 +18,11 @@ const tourSchema = new mongoose.Schema({
     required: [true, "MaxGroupSize is required!"],
   },
 
-  ratingAverage: {
+  ratingsAverage: {
     type: Number,
   },
 
-  ratingCount: {
+  ratingsCount: {
     type: Number,
   },
 
@@ -57,10 +57,11 @@ const tourSchema = new mongoose.Schema({
 
   createdAt: {
     type: Date,
-    default: Date.now()
+    default: Date.now(),
+    select: false,
   },
 
-  startDate: [Date],
+  startDates: [Date],
 
   // locations: {
 
@@ -68,5 +69,6 @@ const tourSchema = new mongoose.Schema({
 });
 
 const Tour = new mongoose.model("Tour", tourSchema);
+
 
 module.exports = Tour;

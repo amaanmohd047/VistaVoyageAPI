@@ -1,14 +1,42 @@
-const ApiResponse = require("../utils/ApiResponse");
 const Tour = require("../models/tours.model");
+
+const ApiResponse = require("../utils/ApiResponse");
 const asyncHandler = require("../utils/asyncHandler");
 const ApiError = require("../utils/ApiError");
+const ApiFeatures = require("../utils/ApiFeatures");
 
 // Get all tours
 const getAllTours = asyncHandler(async (req, res) => {
-  const tours = await Tour.find();
+  /* 
+    // Another Way
+    const feature = await new ApiFeatures(Tour.find(), req.query)
+    .filter({
+      excluded: ["page", "sort", "limit", "fields"],
+    })
+    .sort()
+    .fieldLimit()
+    .paginate()
+
+    const tours = await feature.query
+  */
+  const tours = await new ApiFeatures(Tour, req.query)
+    .filter({
+      excluded: ["page", "sort", "limit", "fields"],
+    })
+    .sort()
+    .fieldLimit()
+    .paginate().query;
+
   res
     .status(200)
-    .json(new ApiResponse(200, tours, "Fetched All Tours Successfully!"));
+    .json(
+      new ApiResponse(
+        200,
+        tours,
+        "Fetched All Tours Successfully!",
+        tours.length
+      )
+    );
 });
 
 // Get tour by ID
