@@ -44,7 +44,7 @@ const getTour = asyncHandler(async (req, res) => {
   const id = req.params.id;
   const tour = await Tour.findById(id);
 
-  if (!tour) throw new ApiError(404, "Could not find a tour by the Id:", id);
+  if (!tour) throw new ApiError(404, `Could not find a tour by the Id: ${id}`);
 
   res
     .status(200)
@@ -67,6 +67,7 @@ const createTour = asyncHandler(async (req, res) => {
 const updateTour = asyncHandler(async (req, res) => {
   const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
+    runValidators: true,
   });
 
   if (!tour) throw new ApiError(404, "No tour found with this Id!");
@@ -87,9 +88,57 @@ const deleteTour = asyncHandler(async (req, res) => {
     .json(new ApiResponse(204, deleteTour, "Tour Deleted Successfully!"));
 });
 
+// Aggregate all the plans for the month of a year
+const getMonthlyPlan = asyncHandler(async (req, res) => {
+  const year = req.params.id;
+
+  const plan = await Tour.aggregate([
+    {
+      $unwind: "$startDates",
+    },
+    {
+      $match: {
+        startDates: {
+          $gte: new Date(`${year}-01-01`),
+          $lte: new Date(`${year}-12-31`),
+        },
+      },
+    },
+    {
+      $group: {
+        _id: {
+          $month: "$startDates",
+        },
+        numTours: { $sum: 1 },
+        tours: { $push: "$name" },
+      },
+    },
+    {
+      $sort: {
+        numTours: -1,
+      },
+    },
+    {
+      $addFields: { month: "$_id" },
+    },
+    {
+      $project: {
+        _id: 0,
+      },
+    },
+  ]);
+
+  res
+    .status(200)
+    .json(
+      new ApiResponse(200, plan, "Fetched Plans for All Month!", plan.length)
+    );
+});
+
 // Exports
 exports.getAllTours = getAllTours;
 exports.getTour = getTour;
 exports.createTour = createTour;
 exports.updateTour = updateTour;
 exports.deleteTour = deleteTour;
+exports.getMonthlyPlan = getMonthlyPlan;

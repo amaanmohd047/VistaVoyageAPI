@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 
 const tourSchema = new mongoose.Schema({
   name: {
@@ -36,6 +37,10 @@ const tourSchema = new mongoose.Schema({
     default: 0,
   },
 
+  slug: {
+    type: String,
+  },
+
   summary: {
     type: String,
     required: [true, "Summary of the tour is required!"],
@@ -68,7 +73,11 @@ const tourSchema = new mongoose.Schema({
   // }
 });
 
-const Tour = new mongoose.model("Tour", tourSchema);
+tourSchema.pre("save", function(next) {
+  this.slug = slugify(`${this.name}`, { lower: true, trim: true });
+  next();
+});
 
+const Tour = new mongoose.model("Tour", tourSchema);
 
 module.exports = Tour;
