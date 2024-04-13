@@ -39,6 +39,7 @@ const tourSchema = new mongoose.Schema({
 
   slug: {
     type: String,
+    unique: true,
   },
 
   summary: {
