@@ -4,10 +4,10 @@
   "description": "api of vistas voyage travel agency website",
   "main": "index.js",
   "scripts": {
-    "server:dev": "nodemon server/src/index.js",
-    "server:populate-dev-data": "node server/src/data/populateDevDB.js --import",
-    "server:delete-dev-data": "node server/src/data/populateDevDB.js --delete",
-    "server:prod": "NODE_ENV=production node server/src/index.js"
+    "server:dev": "nodemon src/index.js",
+    "server:populate-dev-data": "node src/data/populateDevDB.js --import",
+    "server:delete-dev-data": "node src/data/populateDevDB.js --delete",
+    "server:prod": "NODE_ENV=production node src/index.js"
   },
   "author": "Mohammed Amaan",
   "license": "ISC",
