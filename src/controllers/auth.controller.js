@@ -139,6 +139,8 @@ const resetPassword = asyncHandler(async (req, res, next) => {
 });
 
 const updatePassword = asyncHandler(async (req, res, next) => {
+  // console.log(req.user);
+
   // Get user from collection
   if (
     !req.headers.authorization ||

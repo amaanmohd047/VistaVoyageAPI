@@ -5,16 +5,17 @@ const {
   logIn,
   forgotPassword,
   resetPassword,
-  updatePassword
+  updatePassword,
 } = require("../controllers/auth.controller");
+const { protectRouteMiddleware } = require("../middlewares/protectRoute");
 
 const router = express.Router();
 
 router.post("/signup", signUp);
 router.post("/login", logIn);
 router.post("/forgotPassword", forgotPassword);
-router.post("/resetPassword/:token", resetPassword);
-router.post("/updatePassword", updatePassword);
+router.patch("/resetPassword/:token", resetPassword);
+router.patch("/updatePassword", protectRouteMiddleware, updatePassword);
 
 router.route("/").get(getAllUsers);
 router.route("/delete").delete(deleteUser);
