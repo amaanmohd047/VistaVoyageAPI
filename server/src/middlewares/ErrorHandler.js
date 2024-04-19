@@ -79,9 +79,17 @@ const globalErrorHandler = (err, _, res, __) => {
     if (err.code === 11000 || err.codeName === "DuplicateKey")
       handleDuplicacyError(err, res);
 
+    if (err.name === "JsonWebTokenError")
+      err = new ApiError(401, "Invalid Token. Please try again!");
+
+    if (err.name === "TokenExpiredError")
+      err = new ApiError(401, "Token Expired. Please log in again!");
+
     sendErrorProd(err, res);
   }
 };
+
+// JsonWebTokenError
 
 exports.checkValidObjectId = checkValidObjectId;
 

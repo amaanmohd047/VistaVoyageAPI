@@ -6,6 +6,7 @@ function handleUncaughtExceptions() {
 
     console.log("UNHANDLED REJECTION!! Shutting Down the Server");
     console.error(err.name, ":", err.message);
+    console.error(err);
     console.error(ft);
     process.exit(1);
   });

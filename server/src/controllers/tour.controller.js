@@ -85,7 +85,7 @@ const deleteTour = asyncHandler(async (req, res) => {
   if (!deletedTour) throw new ApiError(404, "No tour found with this Id!");
 
   res
-    .status(204)
+    .status(200)
     .json(new ApiResponse(204, deleteTour, "Tour Deleted Successfully!"));
 });
 
