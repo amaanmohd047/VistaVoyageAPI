@@ -44,7 +44,7 @@ const protectRouteMiddleware = asyncHandler(async (req, res, next) => {
 const restrictRouteMiddleware = asyncHandler(async (req, res, next) => {
   if (req.user.role !== "admin")
     throw new ApiError(
-      401,
+      403,
       "You do not have the permission to perform this action!"
     );
 

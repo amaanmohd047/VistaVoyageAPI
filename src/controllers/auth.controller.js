@@ -139,9 +139,10 @@ const resetPassword = asyncHandler(async (req, res, next) => {
 });
 
 const updatePassword = asyncHandler(async (req, res, next) => {
-  // console.log(req.user);
-
   // Get user from collection
+
+  /* 
+  // If we don't have protectRoute middleware that sends req.user we can use below code
   if (
     !req.headers.authorization ||
     !req.headers.authorization.startsWith("Bearer")
@@ -158,6 +159,10 @@ const updatePassword = asyncHandler(async (req, res, next) => {
   if (!decoded) throw new ApiError(401, "Invalid token. Please log in again!");
 
   const user = await User.findById(decoded.id);
+  */
+  console.log(req.user._id);
+  const user = await User.findById(req.user._id);
+
   if (!user) throw new ApiError(401, "Invalid token.");
 
   // check if current password is correct
@@ -185,7 +190,7 @@ const updatePassword = asyncHandler(async (req, res, next) => {
 
   // log in user and send jwt
   res
-    .status(200)
+    .status(311)
     .json(
       new ApiResponse(
         200,

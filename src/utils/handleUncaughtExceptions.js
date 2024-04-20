@@ -1,4 +1,4 @@
-const { firstTrace } = require("./FirstTrace");
+const { firstTrace } = require("./helper");
 
 function handleUncaughtExceptions() {
   process.on("uncaughtException", (err) => {

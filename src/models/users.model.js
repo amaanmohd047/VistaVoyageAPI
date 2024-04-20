@@ -3,6 +3,7 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const ApiError = require("../utils/ApiError");
 const crypto = require("crypto");
+const { boolean } = require("zod");
 
 // name, email, photo, password, passwordConfirm
 
@@ -65,9 +66,16 @@ const userSchema = new mongoose.Schema({
   passwordResetExpires: {
     type: Date,
   },
+
+  active: {
+    type: Boolean,
+    default: true,
+    select: false,
+  },
 });
 
 // A middleware the runs before Model.prototype.save()
+// for hashing password before saving the document
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
@@ -78,11 +86,33 @@ userSchema.pre("save", async function (next) {
 });
 
 // Decreasing 1 sec because there might be a lag between signing jwt token and saving document that might result in them not being equal.
-userSchema.pre("save", function () {
+// Updating the password changed at property if the password was changed
+userSchema.pre("save", function (next) {
   if (!this.isModified("password") || this.isNew) return next();
 
   this.passwordChangedAt = Date.now() - 1000;
+  next();
 });
+
+// on fetching, omit the users that are inactive
+userSchema.pre(/^find/, function (next) {
+  this.find({ active: { $ne: false } });
+  next();
+});
+
+// If createPasswordResetToken is called, it will set password reset token to undefined after the token is expired
+// regex for update || Update => /update/i
+userSchema.post(/(save|.*update.*|.*Update.*)/i, async function (doc) {
+  if (doc._id) {
+    if (doc.passwordResetToken && Date.now() > doc.passwordResetExpires) {
+      doc.passwordResetExpires = undefined;
+      doc.passwordResetToken = undefined;
+      await doc.save({ validateBeforeSave: false });
+    }
+  }
+});
+
+// Regex for update and Update and save
 
 // Instance Methods
 userSchema.methods.checkPassword = async function (password) {
