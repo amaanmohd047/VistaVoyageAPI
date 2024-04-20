@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const { promisify } = require("util");
 
@@ -7,12 +6,7 @@ const ApiResponse = require("../utils/ApiResponse");
 const asyncHandler = require("../utils/asyncHandler");
 const ApiError = require("../utils/ApiError");
 const sendEmail = require("../utils/email");
-
-const signToken = (id) => {
-  return jwt.sign({ id: id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
-  });
-};
+const { signToken, getCookieOptions } = require("../utils/authHelpers");
 
 const signUp = asyncHandler(async (req, res, next) => {
   const newUser = await User.create({
@@ -23,23 +17,30 @@ const signUp = asyncHandler(async (req, res, next) => {
     role: req.body.role,
   });
 
-  const token = signToken(newUser._id);
+  const accessToken = signToken(newUser._id);
+  const cookieOptions = getCookieOptions();
 
-  res.status(201).json(
-    new ApiResponse(
-      201,
-      {
-        name: newUser.name,
-        email: newUser.email,
-        token: token,
-      },
-      "New User created successfully!"
-    )
-  );
+  res
+    .status(201)
+    .cookie("accessToken", accessToken, cookieOptions)
+    .json(
+      new ApiResponse(
+        201,
+        {
+          name: newUser.name,
+          email: newUser.email,
+          role: newUser.role,
+          token: token,
+        },
+        "New User created successfully!"
+      )
+    );
 });
 
 const logIn = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
+
+  console.log(req.cookies);
 
   const user = await User.findOne({ email: email });
 
@@ -53,16 +54,19 @@ const logIn = asyncHandler(async (req, res, next) => {
   if (!correct)
     throw new ApiError(401, "Incorrect Email or Password! Please try again");
 
+  const accessToken = signToken(user._id);
+  const cookieOptions = getCookieOptions();
+
   const userRes = {
     id: user._doc._id,
     role: user._doc.role,
     name: user._doc.name,
     email: user._doc.email,
-    token: signToken(user._id),
   };
 
   res
     .status(200)
+    .cookie("accessToken", accessToken, cookieOptions)
     .json(new ApiResponse(200, userRes, "User logged in successfully!"));
 });
 
@@ -129,13 +133,13 @@ const resetPassword = asyncHandler(async (req, res, next) => {
 
   await user.save();
 
-  const token = signToken(user._id);
+  const accessToken = signToken(user._id);
+  const cookieOptions = getCookieOptions();
 
   res
     .status(200)
-    .json(
-      new ApiResponse(200, { token: token }, "Password reset successfully!")
-    );
+    .cookie("accessToken", accessToken, cookieOptions)
+    .json(new ApiResponse(200, null, "Password reset successfully!"));
 });
 
 const updatePassword = asyncHandler(async (req, res, next) => {
@@ -186,18 +190,14 @@ const updatePassword = asyncHandler(async (req, res, next) => {
 
   await user.save();
 
-  const newToken = signToken(user._id);
+  const accessToken = signToken(user._id);
+  const cookieOptions = getCookieOptions();
 
   // log in user and send jwt
   res
-    .status(311)
-    .json(
-      new ApiResponse(
-        200,
-        { token: newToken },
-        "Password updated successfully!"
-      )
-    );
+    .status(200)
+    .cookie("accessToken", accessToken, cookieOptions)
+    .json(new ApiResponse(200, null, "Password updated successfully!"));
 });
 
 exports.signUp = signUp;
