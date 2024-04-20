@@ -10,6 +10,9 @@ const tourRouter = require("./routes/tour.routes");
 const userRouter = require("./routes/user.routes");
 const { globalErrorHandler } = require("./middlewares/ErrorHandler");
 const ApiError = require("./utils/ApiError");
+const ExpressMongoSanitize = require("express-mongo-sanitize");
+const xss = require("xss-clean");
+const hpp = require("hpp");
 
 const app = express();
 
@@ -34,8 +37,24 @@ app.use(express.urlencoded({ limit: "16kb", extended: true }));
 app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection
+app.use(ExpressMongoSanitize());
 
 // Data sanitization against XSS
+app.use(xss());
+
+// Prevent parameter pollution
+app.use(
+  hpp({
+    whitelist: [
+      "duration",
+      "ratingsQuantity",
+      "ratingsAverage",
+      "maxGroupSize",
+      "difficulty",
+      "price",
+    ],
+  })
+);
 
 // Serving static files
 app.use(express.static("public"));
