@@ -15,7 +15,7 @@ const {
 const {
   protectRouteMiddleware,
   restrictRouteMiddleware,
-} = require("../middlewares/protectRoute");
+} = require("../middlewares/auth.middleware");
 
 const router = express.Router();
 

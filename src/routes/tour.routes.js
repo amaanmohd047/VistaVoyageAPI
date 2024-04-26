@@ -13,7 +13,7 @@ const {
 const {
   protectRouteMiddleware,
   restrictRouteMiddleware,
-} = require("../middlewares/protectRoute");
+} = require("../middlewares/auth.middleware");
 const { schemaValidation } = require("../middlewares/schemaValidation");
 const { tourSchemaValidation } = require("../schema/tour.schama");
 

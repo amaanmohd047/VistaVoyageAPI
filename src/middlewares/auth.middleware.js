@@ -5,8 +5,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/users.model");
 
 const protectRouteMiddleware = asyncHandler(async (req, res, next) => {
-  let token;
-
+  // let token;
   // if (
   //   req.headers.authorization &&
   //   req.headers.authorization.startsWith("Bearer")
@@ -14,7 +13,7 @@ const protectRouteMiddleware = asyncHandler(async (req, res, next) => {
   //   token = req.headers.authorization.split(" ")[1];
   // }
 
-  token = req.cookies?.accessToken || req.headers.authorization.split(" ")[1];
+  const token = req.cookies?.accessToken || req.headers.authorization.split(" ")[1];
 
   if (!token)
     throw new ApiError(401, "User not logged in. Please log in and try again!");
@@ -43,6 +42,7 @@ const protectRouteMiddleware = asyncHandler(async (req, res, next) => {
   next();
 });
 
+// Restrict access to certain routes
 const restrictRouteMiddleware = asyncHandler(async (req, res, next) => {
   if (req.user.role !== "admin")
     throw new ApiError(
