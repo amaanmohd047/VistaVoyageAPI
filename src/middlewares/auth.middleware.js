@@ -1,29 +1,26 @@
 const { promisify } = require("util");
+const jwt = require("jsonwebtoken");
+
 const ApiError = require("../utils/ApiError");
 const asyncHandler = require("../utils/asyncHandler");
-const jwt = require("jsonwebtoken");
 const User = require("../models/users.model");
 
 const protectRouteMiddleware = asyncHandler(async (req, res, next) => {
-  // let token;
-  // if (
-  //   req.headers.authorization &&
-  //   req.headers.authorization.startsWith("Bearer")
-  // ) {
-  //   token = req.headers.authorization.split(" ")[1];
-  // }
-
-  const token = req.cookies?.accessToken || req.headers.authorization.split(" ")[1];
+  const token =
+    req.cookies?.accessToken || req.headers.authorization.split(" ")[1];
 
   if (!token)
     throw new ApiError(401, "User not logged in. Please log in and try again!");
 
   // Verifying JWT Token
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  if (!decoded) throw new ApiError(401, "Invalid token. Please log in again!");
+  const decodedToken = await promisify(jwt.verify)(
+    token,
+    process.env.ACCESS_TOKEN_SECRET
+  );
+  if (!decodedToken) throw new ApiError(401, "Invalid token. Please log in again!");
 
   // Checking if the user still exists
-  const freshUser = await User.findById(decoded.id);
+  const freshUser = await User.findById(decodedToken.id);
   if (!freshUser)
     throw new ApiError(
       404,
@@ -31,7 +28,7 @@ const protectRouteMiddleware = asyncHandler(async (req, res, next) => {
     );
 
   // Check if the user has changed password after the token was issued
-  if (freshUser.changedPasswordAfter(decoded.iat)) {
+  if (freshUser.changedPasswordAfter(decodedToken.iat)) {
     throw new ApiError(
       401,
       "User recently changed password. Please log in again!"

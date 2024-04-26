@@ -6,7 +6,7 @@
 
 # - Task
 
-* [ ] Implement Refresh Token
+* [X] Implement Refresh Token
 * [ ] Implement Google OAuth
 
 #### Security Best Practices

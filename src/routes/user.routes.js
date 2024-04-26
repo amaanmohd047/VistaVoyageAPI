@@ -3,6 +3,7 @@ const {
   getAllUsers,
   removeUser,
   updateUser,
+  getCurrentUser,
 } = require("../controllers/user.controller");
 const {
   signUp,
@@ -10,6 +11,8 @@ const {
   forgotPassword,
   resetPassword,
   updatePassword,
+  logOut,
+  refreshAccessToken,
 } = require("../controllers/auth.controller");
 
 const {
@@ -25,11 +28,12 @@ router.post("/forgotPassword", forgotPassword);
 router.patch("/resetPassword/:token", resetPassword);
 router.patch("/updatePassword", protectRouteMiddleware, updatePassword);
 
-router.route("/").get(getAllUsers);
+router.route("/getAll").get(getAllUsers);
 router.route("/updateUser").patch(protectRouteMiddleware, updateUser);
-router.route("/delete").delete(removeUser);
-// .post(createUser);
+router.route("/delete").delete(protectRouteMiddleware, removeUser);
+router.route("/current-user").get(protectRouteMiddleware, getCurrentUser);
 
-// router.route("/:id").get(getUser).patch(updateUser).delete(removeUser);
+router.route("/logout").post(protectRouteMiddleware, logOut);
+router.route("/refreshToken").post(protectRouteMiddleware, refreshAccessToken);
 
 module.exports = router;

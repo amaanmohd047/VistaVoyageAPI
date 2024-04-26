@@ -1,12 +1,30 @@
 const crypto = require("crypto");
-const { promisify } = require("util");
 
 const User = require("../models/users.model");
 const ApiResponse = require("../utils/ApiResponse");
 const asyncHandler = require("../utils/asyncHandler");
 const ApiError = require("../utils/ApiError");
 const sendEmail = require("../utils/email");
-const { signToken, getCookieOptions } = require("../utils/authHelpers");
+const { getCookieOptions } = require("../utils/authHelpers");
+
+const signAccessAndRefreshToken = async (id) => {
+  try {
+    const user = await User.findOne({ _id: id });
+
+    const accessToken = user.signAccessToken(user._id);
+    const refreshToken = user.signRefreshToken(user._id);
+    user.refreshToken = refreshToken;
+
+    await user.save({ validateBeforeSave: false });
+
+    return { accessToken, refreshToken };
+  } catch (err) {
+    throw new ApiError(
+      500,
+      "Something went wrong while generating tokens. Please try again!"
+    );
+  }
+};
 
 const signUp = asyncHandler(async (req, res, next) => {
   const { name, email, password, passwordConfirm } = req.body;
@@ -31,12 +49,15 @@ const signUp = asyncHandler(async (req, res, next) => {
     role: req.body?.role,
   });
 
-  const accessToken = signToken(newUser._id);
+  const { accessToken, refreshToken } = await signAccessAndRefreshToken(
+    newUser._id
+  );
   const cookieOptions = getCookieOptions();
 
   res
     .status(201)
     .cookie("accessToken", accessToken, cookieOptions)
+    .cookie("refreshToken", refreshToken, cookieOptions)
     .json(
       new ApiResponse(
         201,
@@ -44,7 +65,8 @@ const signUp = asyncHandler(async (req, res, next) => {
           name: newUser.name,
           email: newUser.email,
           role: newUser.role,
-          token: token,
+          accessToken,
+          refreshToken,
         },
         "New User created successfully!"
       )
@@ -68,7 +90,9 @@ const logIn = asyncHandler(async (req, res, next) => {
   if (!correct)
     throw new ApiError(401, "Incorrect Email or Password! Please try again");
 
-  const accessToken = signToken(user._id);
+  const { accessToken, refreshToken } = await signAccessAndRefreshToken(
+    user._id
+  );
   const cookieOptions = getCookieOptions();
 
   const userRes = {
@@ -81,7 +105,14 @@ const logIn = asyncHandler(async (req, res, next) => {
   res
     .status(200)
     .cookie("accessToken", accessToken, cookieOptions)
-    .json(new ApiResponse(200, userRes, "User logged in successfully!"));
+    .cookie("refreshToken", refreshToken, cookieOptions)
+    .json(
+      new ApiResponse(
+        200,
+        { ...userRes, accessToken, refreshToken },
+        "User logged in successfully!"
+      )
+    );
 });
 
 const forgotPassword = asyncHandler(async (req, res, next) => {
@@ -147,13 +178,22 @@ const resetPassword = asyncHandler(async (req, res, next) => {
 
   await user.save();
 
-  const accessToken = signToken(user._id);
+  const { accessToken, refreshToken } = await signAccessAndRefreshToken(
+    user._id
+  );
   const cookieOptions = getCookieOptions();
 
   res
     .status(200)
     .cookie("accessToken", accessToken, cookieOptions)
-    .json(new ApiResponse(200, null, "Password reset successfully!"));
+    .cookie("refreshToken", refreshToken, cookieOptions)
+    .json(
+      new ApiResponse(
+        200,
+        { accessToken, refreshToken },
+        "Password reset successfully!"
+      )
+    );
 });
 
 const updatePassword = asyncHandler(async (req, res, next) => {
@@ -185,14 +225,87 @@ const updatePassword = asyncHandler(async (req, res, next) => {
 
   await user.save();
 
-  const accessToken = signToken(user._id);
+  const { accessToken, refreshToken } = await signAccessAndRefreshToken(
+    user._id
+  );
   const cookieOptions = getCookieOptions();
 
   // log in user and send jwt
   res
     .status(200)
     .cookie("accessToken", accessToken, cookieOptions)
-    .json(new ApiResponse(200, null, "Password updated successfully!"));
+    .cookie("refreshToken", refreshToken, cookieOptions)
+    .json(
+      new ApiResponse(
+        200,
+        { accessToken, refreshToken },
+        "Password updated successfully!"
+      )
+    );
+});
+
+const logOut = asyncHandler(async (req, res, next) => {
+  const id = req.user._id;
+  const user = await User.findByIdAndUpdate(
+    id,
+    {
+      $unset: {
+        refreshToken: 1,
+      },
+    },
+    { new: true }
+  );
+  if (!user)
+    throw new ApiError(
+      404,
+      "Something went wrong while logging out. Please try again!"
+    );
+
+  res
+    .status(200)
+    .clearCookie("accessToken", getCookieOptions())
+    .clearCookie("refreshToken", getCookieOptions())
+    .json(new ApiResponse(200, null, "Logged out successfully!"));
+});
+
+const refreshAccessToken = asyncHandler(async (req, res, next) => {
+  const incomingToken =
+    req.cookies?.accessToken ||
+    req.headers.authorization.split(" ")[1] ||
+    req.body.refreshToken;
+  if (!incomingToken) throw new ApiError(401, "Unauthorized access");
+
+  const decodedToken = await promisify(jwt.verify)(
+    incomingToken,
+    process.env.REFRESH_TOKEN_SECRET
+  );
+  if (!decodedToken)
+    throw new ApiError(401, "Invalid refresh token. Please log in again!");
+
+  const freshUser = await User.findById(decodedToken.id);
+  if (!freshUser)
+    throw new ApiError(404, "Invalid refresh token. Please log in again!");
+
+  if (freshUser.refreshToken !== incomingToken)
+    throw new ApiError(401, "Invalid refresh token. Please log in again!");
+
+  const { accessToken, newRefreshToken } = await signAccessAndRefreshToken(
+    freshUser._id
+  );
+
+  const cookieOptions = getCookieOptions();
+
+  res
+    .status(200)
+    .cookie("accessToken", accessToken, cookieOptions)
+    .cookie("refreshToken", newRefreshToken, cookieOptions)
+    .json(
+      new ApiResponse(
+        200,
+        { accessToken, refreshToken },
+        "Refreshed access token successfully!"
+      )
+    );
 });
 
 exports.signUp = signUp;
@@ -200,3 +313,5 @@ exports.logIn = logIn;
 exports.forgotPassword = forgotPassword;
 exports.resetPassword = resetPassword;
 exports.updatePassword = updatePassword;
+exports.logOut = logOut;
+exports.refreshAccessToken = refreshAccessToken;

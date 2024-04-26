@@ -4,6 +4,7 @@ const ApiResponse = require("../utils/ApiResponse");
 const asyncHandler = require("../utils/asyncHandler");
 const { filterRequestObject } = require("../utils/helper");
 
+
 const getAllUsers = asyncHandler(async (req, res, next) => {
   const users = await User.find();
 
@@ -89,43 +90,14 @@ const deleteUser = asyncHandler(async (req, res, next) => {
     .json(new ApiResponse(204, null, "User deleted successfully!"));
 });
 
+const getCurrentUser = asyncHandler(async (req, res, next) => {
+  res
+    .status(200)
+    .json(new ApiResponse(200, req.user, "User fetched successfully!"));
+});
+
 exports.updateUser = updateUser;
 exports.getAllUsers = getAllUsers;
 exports.removeUser = removeUser;
 exports.deleteUser = deleteUser;
-
-// exports.getUser = (req, res) => {
-//   res.status(500).json({
-//     status: "error",
-//     data: {
-//       message: "Internal server error",
-//     },
-//   });
-// };
-
-// exports.createUser = (req, res) => {
-//   res.status(500).json({
-//     status: "error",
-//     data: {
-//       message: "Internal server error",
-//     },
-//   });
-// };
-
-// exports.updateUser = (req, res) => {
-//   res.status(500).json({
-//     status: "error",
-//     data: {
-//       message: "Internal server error",
-//     },
-//   });
-// };
-
-// exports.removeUser = (req, res) => {
-//   res.status(500).json({
-//     status: "error",
-//     data: {
-//       message: "Internal server error",
-//     },
-//   });
-// };
+exports.getCurrentUser = getCurrentUser;

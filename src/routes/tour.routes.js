@@ -23,7 +23,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(protectRouteMiddleware, getAllTours)
+  .get( getAllTours)
   .post(protectRouteMiddleware, restrictRouteMiddleware, schemaValidation(tourSchemaValidation), createTour);
 
 router.route("/monthly-plan/:id").get(getMonthlyPlan);
@@ -32,7 +32,7 @@ router.use("/:id", checkValidObjectId);
 router
   .route("/:id")
   .get(getTour)
-  .patch(updateTour)
+  .patch(protectRouteMiddleware, restrictRouteMiddleware, updateTour)
   .delete(protectRouteMiddleware, restrictRouteMiddleware, deleteTour);
 
 module.exports = router;

@@ -72,6 +72,11 @@ const userSchema = new mongoose.Schema({
     default: true,
     select: false,
   },
+
+  refreshToken: {
+    type: String,
+    select: false,
+  },
 });
 
 // A middleware the runs before Model.prototype.save()
@@ -144,6 +149,22 @@ userSchema.methods.createPasswordResetToken = function () {
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 
   return resetToken;
+};
+
+userSchema.methods.signAccessToken = function () {
+  return jwt.sign(
+    { id: this._id, email: this.email, name: this.name },
+    process.env.ACCESS_TOKEN_SECRET,
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
+    }
+  );
+};
+
+userSchema.methods.signRefreshToken = function () {
+  return jwt.sign({ id: this._id }, process.env.REFRESH_TOKEN_SECRET, {
+    expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN,
+  });
 };
 
 const User = mongoose.model("user", userSchema);
