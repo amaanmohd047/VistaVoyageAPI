@@ -9,12 +9,26 @@ const sendEmail = require("../utils/email");
 const { signToken, getCookieOptions } = require("../utils/authHelpers");
 
 const signUp = asyncHandler(async (req, res, next) => {
+  const { name, email, password, passwordConfirm } = req.body;
+
+  if (!name || !email || !password || !passwordConfirm) {
+    throw new ApiError(
+      400,
+      "Please provide name, email, password and passwordConfirm"
+    );
+  }
+
+  const userExists = await User.findOne({ email: email });
+
+  if (userExists)
+    throw new ApiError(400, "User with this email already exists!");
+
   const newUser = await User.create({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
-    role: req.body.role,
+    name: name,
+    email: email,
+    password: password,
+    passwordConfirm: passwordConfirm,
+    role: req.body?.role,
   });
 
   const accessToken = signToken(newUser._id);
@@ -145,25 +159,6 @@ const resetPassword = asyncHandler(async (req, res, next) => {
 const updatePassword = asyncHandler(async (req, res, next) => {
   // Get user from collection
 
-  /* 
-  // If we don't have protectRoute middleware that sends req.user we can use below code
-  if (
-    !req.headers.authorization ||
-    !req.headers.authorization.startsWith("Bearer")
-  ) {
-    throw new ApiError(
-      401,
-      "You are not logged in. Please log in and try again"
-    );
-  }
-
-  const token = req.headers.authorization.split(" ")[1];
-
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  if (!decoded) throw new ApiError(401, "Invalid token. Please log in again!");
-
-  const user = await User.findById(decoded.id);
-  */
   console.log(req.user._id);
   const user = await User.findById(req.user._id);
 

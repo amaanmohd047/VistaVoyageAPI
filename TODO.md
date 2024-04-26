@@ -2,6 +2,13 @@
 
 ### Server
 
+- Test the app with a self signed ssl certificate
+
+# - Task
+
+* [ ] Implement Refresh Token
+* [ ] Implement Google OAuth
+
 #### Security Best Practices
 
 * [ ] Keep user logged in using a refresh token
