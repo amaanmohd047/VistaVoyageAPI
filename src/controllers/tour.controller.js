@@ -28,6 +28,8 @@ const getAllTours = asyncHandler(async (req, res) => {
     .fieldLimit()
     .paginate().query;
 
+  if (req.user) console.log(req.user.refreshToken);
+
   res
     .status(200)
     .json(

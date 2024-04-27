@@ -23,8 +23,13 @@ const router = express.Router();
 
 router
   .route("/")
-  .get( getAllTours)
-  .post(protectRouteMiddleware, restrictRouteMiddleware, schemaValidation(tourSchemaValidation), createTour);
+  .get(protectRouteMiddleware, getAllTours)
+  .post(
+    protectRouteMiddleware,
+    restrictRouteMiddleware,
+    schemaValidation(tourSchemaValidation),
+    createTour
+  );
 
 router.route("/monthly-plan/:id").get(getMonthlyPlan);
 

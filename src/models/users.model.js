@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const ApiError = require("../utils/ApiError");
 const crypto = require("crypto");
 const { boolean } = require("zod");
+const jwt = require("jsonwebtoken");
 
 // name, email, photo, password, passwordConfirm
 
@@ -152,19 +153,25 @@ userSchema.methods.createPasswordResetToken = function () {
 };
 
 userSchema.methods.signAccessToken = function () {
-  return jwt.sign(
+  const token = jwt.sign(
     { id: this._id, email: this.email, name: this.name },
     process.env.ACCESS_TOKEN_SECRET,
     {
       expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
     }
   );
+  return token;
 };
 
 userSchema.methods.signRefreshToken = function () {
   return jwt.sign({ id: this._id }, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN,
   });
+};
+
+userSchema.methods.checkRefreshToken = function (incomingToken) {
+  const res = this.refreshToken !== incomingToken;
+  return res;
 };
 
 const User = mongoose.model("user", userSchema);

@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
 const { default: helmet } = require("helmet");
 require("dotenv").config();
+const passport = require("./middlewares/oauth.middleware");
 
 // Routers
 const tourRouter = require("./routes/tour.routes");
@@ -58,6 +59,8 @@ app.use(
 
 // Serving static files
 app.use(express.static("public"));
+
+app.use(passport.initialize());
 
 // API Request Logging
 process.env.NODE_ENV === "development"

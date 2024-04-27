@@ -7,7 +7,7 @@ const User = require("../models/users.model");
 
 const protectRouteMiddleware = asyncHandler(async (req, res, next) => {
   const token =
-    req.cookies?.accessToken || req.headers.authorization.split(" ")[1];
+    req.cookies?.accessToken || req.headers?.authorization?.split(" ")[1];
 
   if (!token)
     throw new ApiError(401, "User not logged in. Please log in and try again!");
@@ -17,10 +17,11 @@ const protectRouteMiddleware = asyncHandler(async (req, res, next) => {
     token,
     process.env.ACCESS_TOKEN_SECRET
   );
-  if (!decodedToken) throw new ApiError(401, "Invalid token. Please log in again!");
+  if (!decodedToken)
+    throw new ApiError(401, "Invalid token. Please log in again!");
 
   // Checking if the user still exists
-  const freshUser = await User.findById(decodedToken.id);
+  const freshUser = await User.findById(decodedToken.id).select("+refreshToken");
   if (!freshUser)
     throw new ApiError(
       404,
@@ -34,6 +35,8 @@ const protectRouteMiddleware = asyncHandler(async (req, res, next) => {
       "User recently changed password. Please log in again!"
     );
   }
+
+  console.log("Middleware ===> ",freshUser.refreshToken)
 
   req.user = freshUser;
   next();

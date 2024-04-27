@@ -1,4 +1,6 @@
 const crypto = require("crypto");
+const promisify = require("util").promisify;
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/users.model");
 const ApiResponse = require("../utils/ApiResponse");
@@ -6,23 +8,20 @@ const asyncHandler = require("../utils/asyncHandler");
 const ApiError = require("../utils/ApiError");
 const sendEmail = require("../utils/email");
 const { getCookieOptions } = require("../utils/authHelpers");
+const passport = require("passport");
 
 const signAccessAndRefreshToken = async (id) => {
   try {
     const user = await User.findOne({ _id: id });
+    const accessToken = await user.signAccessToken();
+    const refreshToken = await user.signRefreshToken();
 
-    const accessToken = user.signAccessToken(user._id);
-    const refreshToken = user.signRefreshToken(user._id);
     user.refreshToken = refreshToken;
-
     await user.save({ validateBeforeSave: false });
 
     return { accessToken, refreshToken };
   } catch (err) {
-    throw new ApiError(
-      500,
-      "Something went wrong while generating tokens. Please try again!"
-    );
+    throw new ApiError(500, err.message);
   }
 };
 
@@ -75,9 +74,6 @@ const signUp = asyncHandler(async (req, res, next) => {
 
 const logIn = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
-
-  console.log(req.cookies);
-
   const user = await User.findOne({ email: email });
 
   if (!email || !password)
@@ -93,6 +89,10 @@ const logIn = asyncHandler(async (req, res, next) => {
   const { accessToken, refreshToken } = await signAccessAndRefreshToken(
     user._id
   );
+
+  user.refreshToken = refreshToken;
+  await user.save({ validateBeforeSave: false });
+
   const cookieOptions = getCookieOptions();
 
   const userRes = {
@@ -198,8 +198,6 @@ const resetPassword = asyncHandler(async (req, res, next) => {
 
 const updatePassword = asyncHandler(async (req, res, next) => {
   // Get user from collection
-
-  console.log(req.user._id);
   const user = await User.findById(req.user._id);
 
   if (!user) throw new ApiError(401, "Invalid token.");
@@ -261,32 +259,37 @@ const logOut = asyncHandler(async (req, res, next) => {
       "Something went wrong while logging out. Please try again!"
     );
 
+  const cookieOptions = getCookieOptions();
+
   res
     .status(200)
-    .clearCookie("accessToken", getCookieOptions())
-    .clearCookie("refreshToken", getCookieOptions())
+    .clearCookie("accessToken", cookieOptions)
+    .clearCookie("refreshToken", cookieOptions)
     .json(new ApiResponse(200, null, "Logged out successfully!"));
 });
 
 const refreshAccessToken = asyncHandler(async (req, res, next) => {
   const incomingToken =
-    req.cookies?.accessToken ||
+    req.cookies?.refreshToken ||
     req.headers.authorization.split(" ")[1] ||
     req.body.refreshToken;
+
   if (!incomingToken) throw new ApiError(401, "Unauthorized access");
 
   const decodedToken = await promisify(jwt.verify)(
     incomingToken,
     process.env.REFRESH_TOKEN_SECRET
   );
+
   if (!decodedToken)
     throw new ApiError(401, "Invalid refresh token. Please log in again!");
 
   const freshUser = await User.findById(decodedToken.id);
   if (!freshUser)
-    throw new ApiError(404, "Invalid refresh token. Please log in again!");
+    throw new ApiError(404, ", Invalid refresh token. Please log in again!");
 
-  if (freshUser.refreshToken !== incomingToken)
+  const correct = await freshUser.checkRefreshToken(incomingToken);
+  if (!correct)
     throw new ApiError(401, "Invalid refresh token. Please log in again!");
 
   const { accessToken, newRefreshToken } = await signAccessAndRefreshToken(
@@ -302,11 +305,62 @@ const refreshAccessToken = asyncHandler(async (req, res, next) => {
     .json(
       new ApiResponse(
         200,
-        { accessToken, refreshToken },
+        { accessToken, refreshToken: newRefreshToken },
         "Refreshed access token successfully!"
       )
     );
 });
+
+/*
+const handleGoogleOAuthCallback = asyncHandler(async (req, res, next) => {
+  passport.authenticate("google", async (err, user) => {
+    console.log("Hello");
+    if (err) throw new ApiError(500, "Internal Server Error");
+    if (!user)
+      throw new ApiError(401, "Authentication Failed! Please try again.");
+
+    try {
+      const freshUser = await User.findOne({ email: user.email });
+
+      if (!(user.name && user.email))
+        throw new ApiError(401, "Authentication Failed! Please try again.");
+
+      if (!freshUser) {
+        freshUser = await User.create({
+          name: user.name,
+          email: profile.emails[0].value,
+        });
+      }
+
+      const { accessToken, refreshToken } = await signAccessAndRefreshToken(
+        freshUser._id
+      );
+      const cookieOptions = getCookieOptions();
+
+      res
+        .status(201)
+        .cookie("accessToken", accessToken, cookieOptions)
+        .cookie("refreshToken", refreshToken, cookieOptions)
+        .json(
+          new ApiResponse(
+            201,
+            {
+              name: freshUser.name,
+              email: freshUser.email,
+              role: freshUser.role,
+              accessToken,
+              refreshToken,
+            },
+            "New User created successfully!"
+          )
+        );
+    } catch (error) {
+      throw new ApiError(500, "Internal Server Error!");
+    }
+  });
+});
+
+*/
 
 exports.signUp = signUp;
 exports.logIn = logIn;
@@ -315,3 +369,5 @@ exports.resetPassword = resetPassword;
 exports.updatePassword = updatePassword;
 exports.logOut = logOut;
 exports.refreshAccessToken = refreshAccessToken;
+// exports.handleGoogleOAuthCallback = handleGoogleOAuthCallback;
+exports.signAccessAndRefreshToken = signAccessAndRefreshToken;
