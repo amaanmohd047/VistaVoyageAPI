@@ -4,16 +4,18 @@ const { isNodeEnvDev } = require("../constants");
 
 const checkValidObjectId = (req, res, next) => {
   const id = req.params.id;
+  if (!id) throw new ApiError(400, "Id is required!");
+
   const isValid = mongoose.isValidObjectId(id);
-  if (isValid) {
-    next();
-  } else {
+
+  if (!isValid)
     throw new ApiError(
       400,
       "BSONError: input must be a 24 character hex string, 12 byte Uint8Array, or an integer",
       "BSONError"
     );
-  }
+
+  next();
 };
 
 const handleDuplicacyError = (err, res) => {
@@ -64,7 +66,7 @@ const sendErrorProd = (err, res) => {
   }
 };
 
-// ::TODO::  Handle Validation Errors 
+// ::TODO::  Handle Validation Errors
 const globalErrorHandler = (err, _, res, __) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || err.status < 500 ? "fail" : "error";
@@ -85,6 +87,7 @@ const globalErrorHandler = (err, _, res, __) => {
     if (err.name === "TokenExpiredError")
       err = new ApiError(401, "Token Expired. Please log in again!");
 
+    if (err.name === "ValidationError")  err = new ApiError(401, "Review validation failed. Either fieldname or value is invalid. Please check and try again!")
     sendErrorProd(err, res);
   }
 };

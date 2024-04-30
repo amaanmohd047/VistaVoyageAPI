@@ -1,0 +1,156 @@
+[
+  {
+    "name": "Monkey D Luffy",
+    "email": "monkey@luffy.com",
+    "role": "admin",
+    "avatar": "http://placehold.it/32x32",
+    "password": "monkeydluffy",
+    "passwordConfirm": "monkeydluffy"
+  },
+  {
+    "name": "Ned Stark",
+    "email": "ned@stark.com",
+    "role": "admin",
+    "avatar": "http://placehold.it/32x32",
+    "password": "nedstark",
+    "passwordConfirm": "nedstark"
+  },
+  {
+    "name": "Cooley Hurley",
+    "email": "cooleyhurley@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "amet ea elit",
+    "passwordConfirm": "amet ea elit"
+  },
+  {
+    "name": "Hampton Wilkinson",
+    "email": "hamptonwilkinson@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "ullamco sit deserunt",
+    "passwordConfirm": "ullamco sit deserunt"
+  },
+  {
+    "name": "Lora Mathews",
+    "email": "loramathews@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "quis adipisicing sint",
+    "passwordConfirm": "quis adipisicing sint"
+  },
+  {
+    "name": "Opal Dale",
+    "email": "opaldale@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "role": "guide",
+    "password": "elit Lorem aute",
+    "passwordConfirm": "elit Lorem aute"
+  },
+  {
+    "name": "Lois Cherry",
+    "email": "loischerry@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "cillum magna aliquip",
+    "passwordConfirm": "cillum magna aliquip"
+  },
+  {
+    "name": "George Mays",
+    "email": "georgemays@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "et voluptate culpa",
+    "passwordConfirm": "et voluptate culpa"
+  },
+  {
+    "name": "Baker Herrera",
+    "email": "bakerherrera@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "role": "guide",
+    "password": "magna dolor elit",
+    "passwordConfirm": "magna dolor elit"
+  },
+  {
+    "name": "Garza Walls",
+    "email": "garzawalls@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "duis non ullamco",
+    "passwordConfirm": "duis non ullamco"
+  },
+  {
+    "name": "Nieves Hobbs",
+    "email": "nieveshobbs@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "veniam tempor excepteur",
+    "passwordConfirm": "veniam tempor excepteur"
+  },
+  {
+    "name": "Wade Morin",
+    "email": "wademorin@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "culpa qui do",
+    "passwordConfirm": "culpa qui do"
+  },
+  {
+    "name": "Joan Duffy",
+    "email": "joanduffy@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "nostrud elit aliquip",
+    "passwordConfirm": "nostrud elit aliquip"
+  },
+  {
+    "name": "Flora Mcgee",
+    "email": "floramcgee@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "role": "guide",
+    "password": "non ex incididunt",
+    "passwordConfirm": "non ex incididunt"
+  },
+  {
+    "name": "Mcknight Walker",
+    "email": "mcknightwalker@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "esse ipsum nulla",
+    "passwordConfirm": "esse ipsum nulla"
+  },
+  {
+    "name": "Liliana Bradshaw",
+    "email": "lilianabradshaw@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "role": "guide",
+    "password": "pariatur cupidatat ipsum",
+    "passwordConfirm": "pariatur cupidatat ipsum"
+  },
+  {
+    "name": "Jeanie Beach",
+    "email": "jeaniebeach@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "amet incididunt sint",
+    "passwordConfirm": "amet incididunt sint"
+  },
+  {
+    "name": "Lacey Ryan",
+    "email": "laceyryan@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "nostrud duis eiusmod",
+    "passwordConfirm": "nostrud duis eiusmod"
+  },
+  {
+    "name": "Booker Terrell",
+    "email": "bookerterrell@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "dolore nisi elit",
+    "passwordConfirm": "dolore nisi elit"
+  },
+  {
+    "name": "Wilson Madden",
+    "email": "wilsonmadden@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "role": "guide",
+    "password": "occaecat excepteur commodo",
+    "passwordConfirm": "occaecat excepteur commodo"
+  },
+  {
+    "name": "Chambers Boyle",
+    "email": "chambersboyle@danja.com",
+    "avatar": "http://placehold.it/32x32",
+    "password": "magna sit nostrud",
+    "passwordConfirm": "magna sit nostrud"
+  }
+]

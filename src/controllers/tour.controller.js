@@ -31,7 +31,10 @@ const getAllTours = asyncHandler(async (req, res) => {
 // Get tour by ID
 const getTour = asyncHandler(async (req, res) => {
   const id = req.params.id;
-  const tour = await Tour.findById(id).populate("guides");
+  const tour = await Tour.findById(id).populate({
+    path: "guides",
+    select: "-__v -passwordChangedAt",
+  });
 
   if (!tour) throw new ApiError(404, `Could not find a tour by the Id: ${id}`);
 

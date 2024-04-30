@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
-const ApiError = require("../utils/ApiError");
 const crypto = require("crypto");
 const { boolean } = require("zod");
 const jwt = require("jsonwebtoken");
@@ -27,7 +26,7 @@ const userSchema = new mongoose.Schema({
     ],
   },
 
-  photo: {
+  avatar: {
     type: String,
     trim: true,
   },

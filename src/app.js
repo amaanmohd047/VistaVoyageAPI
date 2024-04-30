@@ -11,6 +11,7 @@ const hpp = require("hpp");
 // Routers
 const tourRouter = require("./routes/tour.routes");
 const userRouter = require("./routes/user.routes");
+const reviewRouter = require("./routes/review.routes");
 
 // Middlewares
 const { globalErrorHandler } = require("./middlewares/ErrorHandler");
@@ -63,6 +64,7 @@ isNodeEnvDev ? app.use(morgan("dev")) : app.use(morgan("combined"));
 // Routers
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/reviews", reviewRouter);
 
 // Handling Unhandled Routes
 app.all("*", (req, res, next) => {
