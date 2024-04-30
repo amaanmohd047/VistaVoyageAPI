@@ -7,7 +7,7 @@ require("./../db")
   .connectDB()
   .then(() => console.log("DB Connected Successfully!"));
 
-const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours-simple.json`));
+const tours = JSON.parse(fs.readFileSync(`${__dirname}/vistasTour.json`));
 
 async function importDevData() {
   try {

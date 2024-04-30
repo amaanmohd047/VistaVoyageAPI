@@ -8,18 +8,6 @@ const { monthlyPlanAggregation } = require("../utils/AggregationPipeLines");
 
 // Get all tours
 const getAllTours = asyncHandler(async (req, res) => {
-  /* 
-    // Another Way
-    const feature = await new ApiFeatures(Tour.find(), req.query)
-    .filter({
-      excluded: ["page", "sort", "limit", "fields"],
-    })
-    .sort()
-    .fieldLimit()
-    .paginate()
-
-    const tours = await feature.query
-  */
   const tours = await new ApiFeatures(Tour, req.query)
     .filter({
       excluded: ["page", "sort", "limit", "fields"],
@@ -27,8 +15,6 @@ const getAllTours = asyncHandler(async (req, res) => {
     .sort()
     .fieldLimit()
     .paginate().query;
-
-  if (req.user) console.log(req.user.refreshToken);
 
   res
     .status(200)
@@ -45,7 +31,7 @@ const getAllTours = asyncHandler(async (req, res) => {
 // Get tour by ID
 const getTour = asyncHandler(async (req, res) => {
   const id = req.params.id;
-  const tour = await Tour.findById(id);
+  const tour = await Tour.findById(id).populate("guides");
 
   if (!tour) throw new ApiError(404, `Could not find a tour by the Id: ${id}`);
 

@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
 
   role: {
     type: String,
-    enum: ["user", "admin"],
+    enum: ["user", "admin", "guide"],
     default: "user",
   },
 
@@ -174,6 +174,6 @@ userSchema.methods.checkRefreshToken = function (incomingToken) {
   return res;
 };
 
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

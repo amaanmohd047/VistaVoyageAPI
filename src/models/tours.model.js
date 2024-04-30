@@ -14,11 +14,6 @@ const tourSchema = new mongoose.Schema({
     required: [true, "Tour duration is required!"],
   },
 
-  maxGroupSize: {
-    type: Number,
-    required: [true, "MaxGroupSize is required!"],
-  },
-
   ratingsAverage: {
     type: Number,
   },
@@ -69,12 +64,43 @@ const tourSchema = new mongoose.Schema({
 
   startDates: [Date],
 
+  guides: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+    },
+  ],
+
+  startLoaction: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      default: "Point",
+    },
+    coordinates: [Number],
+    address: String,
+    description: String,
+  },
+
+  locations: [
+    {
+      type: {
+        type: String,
+        enum: ["Point"],
+        default: "Point",
+      },
+      coordinates: [Number],
+      description: String,
+      day: Number,
+    },
+  ],
+
   // locations: {
 
   // }
 });
 
-tourSchema.pre("save", function(next) {
+tourSchema.pre("save", function (next) {
   this.slug = slugify(`${this.name}`, { lower: true, trim: true });
   next();
 });

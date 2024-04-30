@@ -1,0 +1,464 @@
+[
+  {
+    "startLocation": {
+      "description": "Delhi, India",
+      "type": "Point",
+      "coordinates": [77.209, 28.6139],
+      "address": "Delhi, India"
+    },
+    "ratingsAverage": 4.5,
+    "ratingsQuantity": 120,
+    "images": [
+      "red_fort.jpg",
+      "taj_mahal.jpg",
+      "amber_fort.jpg",
+      "varanasi_ghat.jpg"
+    ],
+    "name": "Cultural Delights of India",
+    "duration": 10,
+    "price": 1500,
+    "summary": "Explore the rich cultural heritage of India in Delhi, Agra, Jaipur, and Varanasi.",
+    "description": "Immerse yourself in the vibrant culture and history of India with this 10-day tour. From the majestic monuments of Delhi to the iconic Taj Mahal in Agra, the pink-hued architecture of Jaipur, and the spiritual aura of Varanasi, this tour offers a comprehensive experience of India's cultural diversity. Indulge in traditional cuisine, explore bustling markets, and witness mesmerizing rituals along the Ganges River.",
+    "locations": [
+      {
+        "type": "Point",
+        "coordinates": [77.209, 28.6139],
+        "day": 1,
+        "description": "Delhi"
+      },
+      {
+        "type": "Point",
+        "coordinates": [78.0421, 27.1751],
+        "day": 3,
+        "description": "Agra"
+      },
+      {
+        "type": "Point",
+        "coordinates": [75.7873, 26.9124],
+        "day": 4,
+        "description": "Jaipur"
+      },
+      {
+        "type": "Point",
+        "coordinates": [82.956, 25.3176],
+        "day": 6,
+        "description": "Varanasi"
+      }
+    ],
+    "imageCover": "https://example.com/coorg-cover.jpg",
+    "startDates": [
+      "2024-09-15T09:00:00.000Z",
+      "2024-10-20T09:00:00.000Z",
+      "2024-11-12T09:00:00.000Z"
+    ]
+  },
+  {
+    "startLocation": {
+      "description": "Ranthambore National Park, India",
+      "type": "Point",
+      "coordinates": [76.65, 26.0164],
+      "address": "Ranthambore National Park, India"
+    },
+    "ratingsAverage": 4.2,
+    "ratingsQuantity": 95,
+    "images": [
+      "tiger_safari.jpg",
+      "ranthambore_fort.jpg",
+      "bandhavgarh_tiger.jpg"
+    ],
+    "name": "Tiger Trail Adventure",
+    "duration": 6,
+    "price": 1200,
+    "summary": "Embark on an exciting tiger safari adventure in Ranthambore and Bandhavgarh National Parks.",
+    "description": "Experience the thrill of spotting Bengal tigers, leopards, and other wildlife species in their natural habitat during this 6-day adventure. Explore the rugged terrain of Ranthambore National Park and the dense forests of Bandhavgarh National Park while enjoying safari drives, nature walks, and birdwatching.",
+    "locations": [
+      {
+        "type": "Point",
+        "coordinates": [76.65, 26.0164],
+        "day": 1,
+        "description": "Ranthambore National Park"
+      },
+      {
+        "type": "Point",
+        "coordinates": [80.917, 23.698],
+        "day": 4,
+        "description": "Bandhavgarh National Park"
+      }
+    ],
+    "imageCover": "https://example.com/coorg-cover.jpg",
+    "startDates": [
+      "2024-08-18T09:00:00.000Z",
+      "2024-09-29T09:00:00.000Z",
+      "2024-10-30T09:00:00.000Z"
+    ]
+  },
+  {
+    "startLocation": {
+      "description": "Hampi, India",
+      "type": "Point",
+      "coordinates": [76.4765, 15.335],
+      "address": "Hampi, India"
+    },
+    "ratingsAverage": 4.6,
+    "ratingsQuantity": 110,
+    "images": [
+      "hampi_temple.jpg",
+      "mysore_palace.jpg",
+      "madurai_temple.jpg",
+      "thanjavur_temple.jpg"
+    ],
+    "name": "Heritage Trails of South India",
+    "duration": 12,
+    "price": 1800,
+    "summary": "Discover the rich heritage and architectural marvels of South India in Hampi, Mysore, Madurai, and Thanjavur.",
+    "description": "Embark on a 12-day journey through the cultural heartland of South India. Explore the magnificent ruins of Hampi, the regal splendor of Mysore, the temple city of Madurai, and the architectural marvels of Thanjavur. Immerse yourself in the vibrant traditions, exquisite art, and spiritual heritage of this enchanting region.",
+    "locations": [
+      {
+        "type": "Point",
+        "coordinates": [76.4765, 15.335],
+        "day": 1,
+        "description": "Hampi"
+      },
+      {
+        "type": "Point",
+        "coordinates": [76.6394, 12.2958],
+        "day": 4,
+        "description": "Mysore"
+      },
+      {
+        "type": "Point",
+        "coordinates": [78.1132, 9.9252],
+        "day": 7,
+        "description": "Madurai"
+      },
+      {
+        "type": "Point",
+        "coordinates": [79.1378, 10.7867],
+        "day": 10,
+        "description": "Thanjavur"
+      }
+    ],
+    "imageCover": "https://example.com/coorg-cover.jpg",
+    "startDates": [
+      "2024-07-25T09:00:00.000Z",
+      "2024-09-06T09:00:00.000Z",
+      "2024-10-17T09:00:00.000Z"
+    ]
+  },
+  {
+    "startLocation": {
+      "description": "Coorg, Karnataka, India",
+      "type": "Point",
+      "coordinates": [12.3375, 75.8069],
+      "address": "Coorg, Karnataka, India"
+    },
+    "ratingsAverage": 4.6,
+    "ratingsQuantity": 28,
+    "images": [
+      "https://example.com/coorg1.jpg",
+      "https://example.com/coorg2.jpg",
+      "https://example.com/coorg3.jpg"
+    ],
+    "name": "Adventure in the Western Ghats",
+    "duration": 7,
+    "price": 1299,
+    "summary": "Experience the breathtaking beauty of the Western Ghats with this adventure-packed tour through Coorg, Wayanad, and Ooty.",
+    "description": "Embark on a thrilling journey through the Western Ghats, exploring the lush landscapes, majestic waterfalls, and rich biodiversity of Coorg, Wayanad, and Ooty. From trekking through dense forests to cruising on serene lakes, this adventure offers an unforgettable experience for nature lovers and adventure enthusiasts alike.",
+    "locations": [
+      {
+        "type": "Point",
+        "coordinates": [12.3375, 75.8069],
+        "day": 1,
+        "description": "Coorg: Explore the coffee plantations and lush green landscapes of Coorg with visits to Abbey Falls, Dubare Elephant Camp, and Talakaveri. Enjoy trekking, river rafting, and wildlife safaris."
+      },
+      {
+        "type": "Point",
+        "coordinates": [11.6857, 76.0892],
+        "day": 4,
+        "description": "Wayanad: Discover the natural beauty of Wayanad with visits to Banasura Sagar Dam, Edakkal Caves, and Pookode Lake. Trek through dense forests and explore Soochipara and Meenmutty waterfalls."
+      },
+      {
+        "type": "Point",
+        "coordinates": [11.4134, 76.6952],
+        "day": 6,
+        "description": "Ooty: Explore the hill station of Ooty with visits to Ooty Lake, Botanical Gardens, and Doddabetta Peak. Enjoy a scenic toy train ride and explore nearby tea estates and tribal villages."
+      }
+    ],
+    "imageCover": "https://example.com/coorg-cover.jpg",
+    "startDates": [
+      "2024-06-30T09:00:00.000Z",
+      "2024-08-02T09:00:00.000Z",
+      "2024-09-15T09:00:00.000Z"
+    ]
+  },
+  {
+    "startLocation": {
+      "description": "North Goa, India",
+      "type": "Point",
+      "coordinates": [73.7314, 15.2993],
+      "address": "North Goa, India"
+    },
+    "ratingsAverage": 4.3,
+    "ratingsQuantity": 105,
+    "images": ["goa_beach.jpg", "fort_aguada.jpg", "palolem_beach.jpg"],
+    "name": "Goa Escapade",
+    "duration": 5,
+    "price": 900,
+    "summary": "Experience the ultimate beach getaway in Goa, exploring both North and South Goa's vibrant beaches and cultural heritage.",
+    "description": "Escape to the sun-soaked beaches of Goa on this 5-day tour. Explore the lively beaches of North Goa, visit historic forts, and enjoy water sports activities. Then, unwind on the serene beaches of South Goa, soak up the laid-back atmosphere, and discover the rich cultural heritage of Old Goa.",
+    "locations": [
+      {
+        "type": "Point",
+        "coordinates": [73.7314, 15.2993],
+        "day": 1,
+        "description": "North Goa"
+      },
+      {
+        "type": "Point",
+        "coordinates": [74.1239, 15.008],
+        "day": 3,
+        "description": "South Goa"
+      }
+    ],
+    "imageCover": "https://example.com/coorg-cover.jpg",
+    "startDates": [
+      "2024-06-12T09:00:00.000Z",
+      "2024-07-28T09:00:00.000Z",
+      "2024-08-15T09:00:00.000Z"
+    ]
+  },
+  {
+    "startLocation": {
+      "description": "Jaipur, India",
+      "type": "Point",
+      "coordinates": [75.7873, 26.9124],
+      "address": "Jaipur, India"
+    },
+    "ratingsAverage": 4.7,
+    "ratingsQuantity": 125,
+    "images": [
+      "jaipur_amber_fort.jpg",
+      "jodhpur_mehrangarh_fort.jpg",
+      "udaipur_lake_pichola.jpg",
+      "pushkar_brahma_temple.jpg"
+    ],
+    "name": "Rajasthan Royal Retreat",
+    "duration": 12,
+    "price": 2000,
+    "summary": "Embark on a royal journey through the majestic forts, palaces, and colorful cities of Rajasthan.",
+    "description": "Experience the grandeur of Rajasthan on this 12-day royal retreat. Explore the magnificent forts and palaces of Jaipur, Jodhpur, and Udaipur. Immerse yourself in the vibrant culture of Rajasthan as you wander through bustling bazaars, visit ancient temples, and witness traditional Rajasthani performances.",
+    "locations": [
+      {
+        "type": "Point",
+        "coordinates": [75.7873, 26.9124],
+        "day": 1,
+        "description": "Jaipur"
+      },
+      {
+        "type": "Point",
+        "coordinates": [73.0243, 26.2389],
+        "day": 4,
+        "description": "Jodhpur"
+      },
+      {
+        "type": "Point",
+        "coordinates": [73.7139, 24.5854],
+        "day": 6,
+        "description": "Udaipur"
+      },
+      {
+        "type": "Point",
+        "coordinates": [74.555, 26.4875],
+        "day": 9,
+        "description": "Pushkar"
+      }
+    ],
+    "imageCover": "https://example.com/coorg-cover.jpg",
+    "startDates": [
+      "2024-07-02T09:00:00.000Z",
+      "2024-08-19T09:00:00.000Z",
+      "2024-09-23T09:00:00.000Z"
+    ]
+  },
+  {
+    "startLocation": {
+      "description": "Jim Corbett National Park, India",
+      "type": "Point",
+      "coordinates": [78.7927, 29.4945],
+      "address": "Jim Corbett National Park, India"
+    },
+    "ratingsAverage": 4.0,
+    "ratingsQuantity": 90,
+    "images": [
+      "jim_corbett_tiger.jpg",
+      "jim_corbett_elephant.jpg",
+      "jim_corbett_deer.jpg"
+    ],
+    "name": "Wildlife Expedition in Jim Corbett",
+    "duration": 3,
+    "price": 750,
+    "summary": "Embark on an unforgettable wildlife safari adventure in Jim Corbett National Park, home to diverse flora and fauna.",
+    "description": "Delve into the wilderness of Jim Corbett National Park on this 3-day wildlife expedition. Traverse through dense forests, spot majestic tigers, elephants, and deer on thrilling jeep safaris, and immerse yourself in the natural beauty of this renowned wildlife sanctuary.",
+    "locations": [
+      {
+        "type": "Point",
+        "coordinates": [78.7927, 29.4945],
+        "day": 1,
+        "description": "Jim Corbett National Park"
+      }
+    ],
+    "imageCover": "https://example.com/coorg-cover.jpg",
+    "startDates": [
+      "2024-08-08T09:00:00.000Z",
+      "2024-09-21T09:00:00.000Z",
+      "2024-10-14T09:00:00.000Z"
+    ]
+  },
+  {
+    "startLocation": {
+      "description": "Varanasi, India",
+      "type": "Point",
+      "coordinates": [83.0059, 25.3176],
+      "address": "Varanasi, India"
+    },
+    "ratingsAverage": 4.5,
+    "ratingsQuantity": 80,
+    "images": [
+      "varanasi_ghats.jpg",
+      "bodh_gaya_mahabodhi_temple.jpg",
+      "rishikesh_ganges.jpg"
+    ],
+    "name": "Spiritual Sojourns",
+    "duration": 8,
+    "price": 1200,
+    "summary": "Embark on a transformative spiritual journey to Varanasi, Bodh Gaya, and Rishikesh, immersing in ancient traditions and sacred sites.",
+    "description": "Discover the spiritual heart of India on this 8-day journey. Explore the ancient city of Varanasi, where Hindu rituals are performed on the ghats of the Ganges River. Visit Bodh Gaya, where Buddha attained enlightenment under the Bodhi Tree, and experience the tranquil ambiance of Rishikesh, known as the 'Yoga Capital of the World.'",
+    "locations": [
+      {
+        "type": "Point",
+        "coordinates": [83.0059, 25.3176],
+        "day": 1,
+        "description": "Varanasi"
+      },
+      {
+        "type": "Point",
+        "coordinates": [84.9879, 24.6966],
+        "day": 4,
+        "description": "Bodh Gaya"
+      },
+      {
+        "type": "Point",
+        "coordinates": [78.2676, 30.0866],
+        "day": 6,
+        "description": "Rishikesh"
+      }
+    ],
+    "imageCover": "https://example.com/coorg-cover.jpg",
+    "startDates": [
+      "2024-09-02T09:00:00.000Z",
+      "2024-10-10T09:00:00.000Z",
+      "2024-11-28T09:00:00.000Z"
+    ]
+  },
+  {
+    "startLocation": {
+      "description": "Kochi, India",
+      "type": "Point",
+      "coordinates": [76.2673, 9.9312],
+      "address": "Kochi, India"
+    },
+    "ratingsAverage": 4.6,
+    "ratingsQuantity": 95,
+    "images": ["kochi.jpg", "munnar.jpg", "alleppey.jpg", "kovalam.jpg"],
+    "name": "Kerala Bliss",
+    "duration": 7,
+    "price": 1200,
+    "summary": "Experience the serene beauty of Kerala with visits to Kochi, Munnar, Alleppey, and Kovalam.",
+    "description": "Discover the tranquil backwaters, lush tea plantations, and golden beaches of Kerala on this 7-day tour. Explore the historic city of Kochi, marvel at the mist-covered hills of Munnar, cruise through the scenic backwaters of Alleppey, and unwind on the pristine beaches of Kovalam. Indulge in authentic Kerala cuisine and rejuvenate your senses with Ayurvedic treatments.",
+    "locations": [
+      {
+        "type": "Point",
+        "coordinates": [76.2673, 9.9312],
+        "day": 1,
+        "description": "Kochi"
+      },
+      {
+        "type": "Point",
+        "coordinates": [77.0495, 10.0889],
+        "day": 3,
+        "description": "Munnar"
+      },
+      {
+        "type": "Point",
+        "coordinates": [76.3356, 9.4981],
+        "day": 4,
+        "description": "Alleppey"
+      },
+      {
+        "type": "Point",
+        "coordinates": [76.3185, 8.4004],
+        "day": 6,
+        "description": "Kovalam"
+      }
+    ],
+    "imageCover": "https://example.com/coorg-cover.jpg",
+    "startDates": [
+      "2024-08-05T09:00:00.000Z",
+      "2024-09-18T09:00:00.000Z",
+      "2024-10-25T09:00:00.000Z"
+    ]
+  },
+  {
+    "startLocation": {
+      "description": "Leh, India",
+      "type": "Point",
+      "coordinates": [34.1526, 77.577],
+      "address": "Leh, India"
+    },
+    "ratingsAverage": 4.8,
+    "ratingsQuantity": 110,
+    "images": [
+      "leh.jpg",
+      "nubra_valley.jpg",
+      "pangong_lake.jpg",
+      "khardung_la.jpg"
+    ],
+    "name": "Himalayan Adventure",
+    "duration": 14,
+    "price": 2500,
+    "summary": "Embark on a thrilling adventure in the Himalayas, exploring Leh, Nubra Valley, Pangong Lake, and Khardung La.",
+    "description": "Experience the rugged beauty and spiritual tranquility of the Himalayas on this 14-day adventure. Explore the ancient monasteries and royal palaces of Leh, trek through the high-altitude desert of Nubra Valley, camp beside the mesmerizing Pangong Lake, and conquer the world's highest motorable pass, Khardung La. Immerse yourself in the rich culture and breathtaking landscapes of Ladakh.",
+    "locations": [
+      {
+        "type": "Point",
+        "coordinates": [34.1526, 77.577],
+        "day": 1,
+        "description": "Leh"
+      },
+      {
+        "type": "Point",
+        "coordinates": [77.446, 34.35],
+        "day": 4,
+        "description": "Nubra Valley"
+      },
+      {
+        "type": "Point",
+        "coordinates": [78.3263, 33.9457],
+        "day": 6,
+        "description": "Pangong Lake"
+      },
+      {
+        "type": "Point",
+        "coordinates": [77.5929, 34.1647],
+        "day": 8,
+        "description": "Leh"
+      }
+    ],
+    "imageCover": "https://example.com/coorg-cover.jpg",
+    "startDates": [
+      "2024-07-10T09:00:00.000Z",
+      "2024-08-22T09:00:00.000Z",
+      "2024-09-30T09:00:00.000Z"
+    ]
+  }
+]

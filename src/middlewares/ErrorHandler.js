@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const ApiError = require("../utils/ApiError");
+const { isNodeEnvDev } = require("../constants");
 
 const checkValidObjectId = (req, res, next) => {
   const id = req.params.id;
@@ -63,15 +64,14 @@ const sendErrorProd = (err, res) => {
   }
 };
 
-// ::TODO::  Handle Validation Errors
-
+// ::TODO::  Handle Validation Errors 
 const globalErrorHandler = (err, _, res, __) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || err.status < 500 ? "fail" : "error";
   err.errors = err.errors || [];
 
-  const isDevServer = process.env.NODE_ENV === "development";
-  const isProdServer = process.env.NODE_ENV === "production";
+  const isDevServer = isNodeEnvDev;
+  const isProdServer = isNodeEnvDev === false;
 
   if (isDevServer) {
     sendErrorDev(err, res);

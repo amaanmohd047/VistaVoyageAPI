@@ -36,8 +36,6 @@ const protectRouteMiddleware = asyncHandler(async (req, res, next) => {
     );
   }
 
-  console.log("Middleware ===> ",freshUser.refreshToken)
-
   req.user = freshUser;
   next();
 });

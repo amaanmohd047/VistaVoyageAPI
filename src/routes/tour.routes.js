@@ -14,7 +14,7 @@ const {
   protectRouteMiddleware,
   restrictRouteMiddleware,
 } = require("../middlewares/auth.middleware");
-const { schemaValidation } = require("../middlewares/schemaValidation");
+const { schemaValidation } = require("../middlewares/schemaValidation.middleware");
 const { tourSchemaValidation } = require("../schema/tour.schama");
 
 const { checkValidObjectId } = require("../middlewares/ErrorHandler");

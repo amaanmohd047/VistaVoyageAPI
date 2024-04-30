@@ -1,19 +1,24 @@
+require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
 const { default: helmet } = require("helmet");
-require("dotenv").config();
-const passport = require("./middlewares/oauth.middleware");
+const ExpressMongoSanitize = require("express-mongo-sanitize");
+const xss = require("xss-clean");
+const hpp = require("hpp");
 
 // Routers
 const tourRouter = require("./routes/tour.routes");
 const userRouter = require("./routes/user.routes");
+
+// Middlewares
 const { globalErrorHandler } = require("./middlewares/ErrorHandler");
+const passport = require("./middlewares/oauth.middleware");
+
+// Utils
 const ApiError = require("./utils/ApiError");
-const ExpressMongoSanitize = require("express-mongo-sanitize");
-const xss = require("xss-clean");
-const hpp = require("hpp");
+const { hppWhiteList, isNodeEnvDev } = require("./constants");
 
 const app = express();
 
@@ -44,28 +49,16 @@ app.use(ExpressMongoSanitize());
 app.use(xss());
 
 // Prevent parameter pollution
-app.use(
-  hpp({
-    whitelist: [
-      "duration",
-      "ratingsQuantity",
-      "ratingsAverage",
-      "maxGroupSize",
-      "difficulty",
-      "price",
-    ],
-  })
-);
+app.use(hpp({ whitelist: hppWhiteList }));
 
 // Serving static files
 app.use(express.static("public"));
 
+// Passport middleware initialization for Google OAuth
 app.use(passport.initialize());
 
 // API Request Logging
-process.env.NODE_ENV === "development"
-  ? app.use(morgan("dev"))
-  : app.use(morgan("combined"));
+isNodeEnvDev ? app.use(morgan("dev")) : app.use(morgan("combined"));
 
 // Routers
 app.use("/api/v1/tours", tourRouter);

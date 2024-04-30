@@ -69,7 +69,7 @@
    - Day 4-5 (Jodhpur): Visit Mehrangarh Fort, Jaswant Thada, and Umaid Bhawan Palace. Explore the vibrant markets of Jodhpur and taste local delicacies.
    - Day 6-8 (Udaipur): Explore the romantic city of Udaipur with visits to City Palace, Lake Pichola, and Jag Mandir. Enjoy boat rides on the lake and visit the Eklingji and Nathdwara temples.
    - Day 9-10 (Pushkar): Experience the spiritual atmosphere of Pushkar with visits to Brahma Temple, Pushkar Lake, and Savitri Temple. Explore the colorful bazaars and attend the evening Aarti.
-   - Day 11-12: Return to Jaipur for departure or optional extension.
+   - Day 11-12 (Jaipur)): Return to Jaipur for departure or optional extension.
 6. **Wildlife Expedition in Jim Corbett**:
 
    Duration: 3 days

@@ -7,6 +7,7 @@
 # - Task
 
 * [ ] I
+* [X] Clean OAuth Code
 * [ ] Setup CI/CD using Github Actions
 * [X] Implement Refresh Token
 * [X] Implement Google OAuth
