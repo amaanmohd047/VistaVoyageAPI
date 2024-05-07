@@ -4,7 +4,10 @@ const ApiResponse = require("../utils/ApiResponse");
 const asyncHandler = require("../utils/asyncHandler");
 
 const getAllReviews = asyncHandler(async (req, res, next) => {
-  const reviews = await Review.find().select("-__v");
+  let filter = {};
+  if (req.params.tourId) filter = { tour: req.params.tourId };
+
+  const reviews = await Review.find(filter).select("-__v");
 
   if (!reviews) throw new ApiError(404, "No reviews found!");
 
@@ -21,7 +24,7 @@ const getAllReviews = asyncHandler(async (req, res, next) => {
 });
 
 const getReview = asyncHandler(async (req, res, next) => {
-  const review = await Review.findById(req.params.id).select("-__v");
+  const review = await Review.findById(filter).select("-__v");
   if (!review) throw new ApiError(404, "No review found with this Id!");
   res
     .status(200)
@@ -31,13 +34,14 @@ const getReview = asyncHandler(async (req, res, next) => {
 const createReview = asyncHandler(async (req, res, next) => {
   const newReview = {
     review: req.body.review,
-    ratings: req.body.ratings,
-    tour: req.body.tour,
+    rating: req.body.rating,
+    tour: req.body.tour || req.params.tourId,
     user: req.user._id,
   };
 
+  console.log(newReview);
   if (
-    !(newReview.review && newReview.ratings && newReview.tour && newReview.user)
+    !(newReview.review && newReview.rating && newReview.tour && newReview.user)
   )
     throw new ApiError(400, "Please provide review, ratings, tour, and user!");
 

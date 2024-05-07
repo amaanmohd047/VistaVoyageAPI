@@ -21,7 +21,9 @@ const protectRouteMiddleware = asyncHandler(async (req, res, next) => {
     throw new ApiError(401, "Invalid token. Please log in again!");
 
   // Checking if the user still exists
-  const freshUser = await User.findById(decodedToken.id).select("+refreshToken");
+  const freshUser = await User.findById(decodedToken.id).select(
+    "+refreshToken"
+  );
   if (!freshUser)
     throw new ApiError(
       404,
@@ -41,15 +43,18 @@ const protectRouteMiddleware = asyncHandler(async (req, res, next) => {
 });
 
 // Restrict access to certain routes
-const restrictRouteMiddleware = asyncHandler(async (req, res, next) => {
-  if (req.user.role !== "admin")
-    throw new ApiError(
-      403,
-      "You do not have the permission to perform this action!"
-    );
+const restrictRouteMiddleware = (role) =>
+  asyncHandler(async (req, res, next) => {
+    if (!role) role = "admin";
 
-  next();
-});
+    if (req.user.role !== role)
+      throw new ApiError(
+        403,
+        "You do not have the permission to perform this action!"
+      );
+
+    next();
+  });
 
 exports.protectRouteMiddleware = protectRouteMiddleware;
 exports.restrictRouteMiddleware = restrictRouteMiddleware;

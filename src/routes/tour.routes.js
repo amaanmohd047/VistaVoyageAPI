@@ -14,9 +14,11 @@ const {
   restrictRouteMiddleware,
 } = require("../middlewares/auth.middleware");
 const { schemaValidation } = require("../middlewares/schemaValidation.middleware");
-const { tourSchemaValidation } = require("../schema/tour.schama");
-
 const { checkValidObjectId } = require("../middlewares/ErrorHandler");
+
+const reviewRouter = require("./review.routes")
+
+const { tourSchemaValidation } = require("../schema/tour.schama");
 
 const router = express.Router();
 
@@ -32,11 +34,13 @@ router
 
 router.route("/monthly-plan/:id").get(getMonthlyPlan);
 
+router.use("/:tourId/reviews", reviewRouter);
+
 router.use("/:id", checkValidObjectId);
 router
   .route("/:id")
   .get(getTour)
-  .patch(protectRouteMiddleware, restrictRouteMiddleware, updateTour)
-  .delete(protectRouteMiddleware, restrictRouteMiddleware, deleteTour);
+  .patch(protectRouteMiddleware, restrictRouteMiddleware("admin"), updateTour)
+  .delete(protectRouteMiddleware, restrictRouteMiddleware("admin"), deleteTour);
 
 module.exports = router;

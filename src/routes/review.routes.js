@@ -8,18 +8,18 @@ const {
 } = require("../controllers/review.controller");
 
 const { checkValidObjectId } = require("../middlewares/ErrorHandler");
-const { protectRouteMiddleware } = require("../middlewares/auth.middleware");
+const { protectRouteMiddleware, restrictRouteMiddleware } = require("../middlewares/auth.middleware");
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 // protectedRoutes: createReview, updateReview, deleteReview.
-router.route("/").get(getAllReviews).post(protectRouteMiddleware, createReview);
+router.route("/").get(getAllReviews).post(protectRouteMiddleware, restrictRouteMiddleware("user"), createReview);
 
 router.use("/:id", checkValidObjectId);
 router
   .route("/:id")
   .get(getReview)
-  .patch(protectRouteMiddleware, updateReview)
-  .delete(protectRouteMiddleware, deleteReview);
+  .patch(protectRouteMiddleware, restrictRouteMiddleware("user"), updateReview)
+  .delete(protectRouteMiddleware, restrictRouteMiddleware("user"), deleteReview);
 
 module.exports = router;

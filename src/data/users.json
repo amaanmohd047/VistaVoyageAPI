@@ -1,5 +1,21 @@
 [
   {
+    "name": "Monkey D Luffy",
+    "email": "monkey@luffy.com",
+    "role": "admin",
+    "avatar": "http://placehold.it/32x32",
+    "password": "monkeydluffy",
+    "passwordConfirm": "monkeydluffy"
+  },
+  {
+    "name": "Ned Stark",
+    "email": "ned@stark.com",
+    "role": "admin",
+    "avatar": "http://placehold.it/32x32",
+    "password": "nedstark",
+    "passwordConfirm": "nedstark"
+  },
+  {
     "_id": "5c8a1d5b0190b214360dc057",
     "name": "Jonas Schmedtmann",
     "email": "admin@natours.io",

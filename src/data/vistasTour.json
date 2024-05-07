@@ -7,7 +7,7 @@
       "address": "Delhi, India"
     },
     "ratingsAverage": 4.5,
-    "ratingsQuantity": 120,
+    "ratingsCount": 120,
     "images": [
       "red_fort.jpg",
       "taj_mahal.jpg",
@@ -60,7 +60,7 @@
       "address": "Ranthambore National Park, India"
     },
     "ratingsAverage": 4.2,
-    "ratingsQuantity": 95,
+    "ratingsCount": 95,
     "images": [
       "tiger_safari.jpg",
       "ranthambore_fort.jpg",
@@ -100,7 +100,7 @@
       "address": "Hampi, India"
     },
     "ratingsAverage": 4.6,
-    "ratingsQuantity": 110,
+    "ratingsCount": 110,
     "images": [
       "hampi_temple.jpg",
       "mysore_palace.jpg",
@@ -153,7 +153,7 @@
       "address": "Coorg, Karnataka, India"
     },
     "ratingsAverage": 4.6,
-    "ratingsQuantity": 28,
+    "ratingsCount": 28,
     "images": [
       "https://example.com/coorg1.jpg",
       "https://example.com/coorg2.jpg",
@@ -199,7 +199,7 @@
       "address": "North Goa, India"
     },
     "ratingsAverage": 4.3,
-    "ratingsQuantity": 105,
+    "ratingsCount": 105,
     "images": ["goa_beach.jpg", "fort_aguada.jpg", "palolem_beach.jpg"],
     "name": "Goa Escapade",
     "duration": 5,
@@ -235,7 +235,7 @@
       "address": "Jaipur, India"
     },
     "ratingsAverage": 4.7,
-    "ratingsQuantity": 125,
+    "ratingsCount": 125,
     "images": [
       "jaipur_amber_fort.jpg",
       "jodhpur_mehrangarh_fort.jpg",
@@ -288,7 +288,7 @@
       "address": "Jim Corbett National Park, India"
     },
     "ratingsAverage": 4.0,
-    "ratingsQuantity": 90,
+    "ratingsCount": 90,
     "images": [
       "jim_corbett_tiger.jpg",
       "jim_corbett_elephant.jpg",
@@ -322,7 +322,7 @@
       "address": "Varanasi, India"
     },
     "ratingsAverage": 4.5,
-    "ratingsQuantity": 80,
+    "ratingsCount": 80,
     "images": [
       "varanasi_ghats.jpg",
       "bodh_gaya_mahabodhi_temple.jpg",
@@ -368,7 +368,7 @@
       "address": "Kochi, India"
     },
     "ratingsAverage": 4.6,
-    "ratingsQuantity": 95,
+    "ratingsCount": 95,
     "images": ["kochi.jpg", "munnar.jpg", "alleppey.jpg", "kovalam.jpg"],
     "name": "Kerala Bliss",
     "duration": 7,
@@ -416,7 +416,7 @@
       "address": "Leh, India"
     },
     "ratingsAverage": 4.8,
-    "ratingsQuantity": 110,
+    "ratingsCount": 110,
     "images": [
       "leh.jpg",
       "nubra_valley.jpg",

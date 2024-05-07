@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "server:dev": "nodemon src/index.js",
-    "server:populate-dev-data": "node src/data/populateDevDB.js --import",
-    "server:delete-dev-data": "node src/data/populateDevDB.js --delete",
+    "server:populate-user-data": "node src/data/populateDevDB.js --import-user",
+    "server:populate-review-data": "node src/data/populateDevDB.js --import-review",
+    "server:populate-dev-data": "node src/data/populateDevDB.js --import-dev",
+    "server:delete-dev-data": "node src/data/populateDevDB.js --delete-dev",
     "server:prod": "NODE_ENV=production node src/index.js"
   },
   "author": "Mohammed Amaan",
