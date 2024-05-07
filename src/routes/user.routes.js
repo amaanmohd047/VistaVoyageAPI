@@ -6,6 +6,7 @@ const {
   removeUser,
   updateUser,
   getCurrentUser,
+  deleteUser,
 } = require("../controllers/user.controller");
 
 const {
@@ -26,22 +27,25 @@ const router = express.Router();
 
 router.route("/signup").post(signUp);
 router.route("/login").post(logIn);
+router.route("/logout").post(protectRouteMiddleware, logOut);
+
 router.route("/forgotPassword").post(forgotPassword);
 router.route("/resetPassword/:token").patch(resetPassword);
 router.route("/updatePassword").patch(protectRouteMiddleware, updatePassword);
 
+router.route("/updateUser").patch(protectRouteMiddleware, updateUser);
+router
+  .route("/currentUser")
+  .get(protectRouteMiddleware, getCurrentUser)
+  .delete(protectRouteMiddleware, deleteUser);
+
 // ::TODO:: Delete this route after testing OR Restrict This route to only Admin.
 router.route("/getAll").get(getAllUsers);
-// 
-
-router.route("/update").patch(protectRouteMiddleware, updateUser);
 router.route("/delete").delete(protectRouteMiddleware, removeUser);
-router.route("/currentUser").get(protectRouteMiddleware, getCurrentUser);
-router.route("/logout").post(protectRouteMiddleware, logOut);
+//
 
 // Route for refreshing access token
 router.route("/refreshToken").post(protectRouteMiddleware, refreshAccessToken);
-
 
 // Google OAuth Routes
 router

@@ -17,10 +17,14 @@ const tourSchema = new mongoose.Schema(
 
     ratingsAverage: {
       type: Number,
+      max: [5, "A tour rating must be below 5.0"],
+      min: [1, "A tour rating must be below 5.0"],
+      set: (val) => Math.round(val * 10) / 10,
     },
 
     ratingsCount: {
       type: Number,
+      default: 0
     },
 
     price: {
@@ -95,10 +99,6 @@ const tourSchema = new mongoose.Schema(
         day: Number,
       },
     ],
-
-    // locations: {
-
-    // }
   },
   {
     toJSON: { virtuals: true },
