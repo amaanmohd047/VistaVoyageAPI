@@ -1,5 +1,14 @@
 # Todos
 
+### Bullet Points
+
+- Developed a RESTful API for a travel agency service using Express.js, MongoDB, and Mongoose, with input validation handled by Zod.
+- Secured the application with XSS protection, CORS, CSRF, Helmet, data sanitization against NoSQL query injection, and parameter pollution prevention using HPP.
+- Implemented in-house authentication and Google sign-in using Passport.js, both utilizing JWT and refresh tokens.
+- Used Postman for rigorous API testing and documentation.
+- Integrated Stripe for payments, utilized SendGrid and Nodemailer for emailing functionalities, and used Multer for handling image uploads.
+- Managed process management, monitoring, logging, and clustering with PM2, and implemented CI/CD pipelines using GitHub Actions.
+
 ### Server
 
 - Test the app with a self signed ssl certificate

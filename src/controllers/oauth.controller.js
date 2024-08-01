@@ -3,7 +3,6 @@ const ApiResponse = require("../utils/ApiResponse");
 const { signAccessAndRefreshToken } = require("./auth.controller");
 const asyncHandler = require("../utils/asyncHandler");
 
-
 const oAuthCallback = asyncHandler(async function (req, res, next) {
   try {
     const { accessToken, refreshToken } = await signAccessAndRefreshToken(
@@ -25,7 +24,8 @@ const oAuthCallback = asyncHandler(async function (req, res, next) {
           },
           "User logged in successfully"
         )
-      ); // Redirect to the dashboard or any other route
+      );
+    // Redirect to the dashboard or any other route
   } catch (error) {
     console.error("Error generating tokens:", error);
     res.status(500).json({ message: "Internal server error" });

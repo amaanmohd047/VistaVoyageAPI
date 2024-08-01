@@ -8,7 +8,7 @@ const asyncHandler = require("../utils/asyncHandler");
 const ApiError = require("../utils/ApiError");
 const sendEmail = require("../utils/email");
 const { getCookieOptions } = require("../utils/authHelpers");
-const passport = require("passport");
+// const passport = require("passport");
 
 const signAccessAndRefreshToken = async (id) => {
   try {
