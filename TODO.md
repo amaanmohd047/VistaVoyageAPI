@@ -15,11 +15,13 @@
 
 # - Task
 
-* [ ] I
 * [X] Clean OAuth Code
 * [ ] Setup CI/CD using Github Actions
 * [X] Implement Refresh Token
 * [X] Implement Google OAuth
+* [ ] Integrate sendgrid
+* [ ] Integrate stripe
+* [ ] 
 
 #### Security Best Practices
 

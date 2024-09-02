@@ -11,4 +11,4 @@ exports.hppWhiteList = [
 
 exports.isNodeEnvDev = process.env.NODE_ENV === "development";
 
-exports.port = process.env.EXPRESS_PORT || 4000;
+exports.port = process.env.PORT || 4000;
